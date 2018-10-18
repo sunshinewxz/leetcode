@@ -1,41 +1,22 @@
-def letterCombinations(digits):
-    """
-    :type digits: str
-    :rtype: List[str]
-    """
-    dic = {
-        '1':[],
-        '2':['a','b','c'],
-        '3':['d','e','f'],
-        '4':['g','h','i'],
-        '5':['j','k','l'],
-        '6':['m','n','o'],
-        '7':['p','q','r','s'],
-        '8':['t','u','v'],
-        '9':['w','x','y','z'],
-    }
-
-    li = []
-    for c in digits:
-        li.append(dic[c])
-
-    temp = []
-    str = li[0]
-    for i in range(1,len(digits)):
-        add_list = li[i]
-        for add in add_list:
-            temp = temp + addLetter(str,add)
-        str = temp
-        temp = []
-    result = str
-    return result
-
-def addLetter(original, add):
-    re = []
-    for i in range(len(original)):
-        re = re + [original[i] + add]
-    return re
-
-digits = '233'
-result = letterCombinations(digits)
-print(result)
+class Solution(object):
+    def letterCombinations(self, digits):
+        """
+        :type digits: str
+        :rtype: List[str]
+        """
+        if len(digits) == 0:
+            return[]
+        dict = {'1':[], '2':['a','b','c'], '3':['d','e','f'], '4':['g','h','i'], '5':['j','k','l'], '6':['m','n','o'], 
+                '7':['p','q','r','s'], '8':['t','u','v'], '9':['w','x','y','z']}
+        result = dict[digits[0]]
+        for i in range(1, len(digits)):
+            result = self.subCombination(result, dict[digits[i]])
+        return result
+            
+    def subCombination(self, list1, list2):
+        result = []
+        for i in range(len(list1)):
+            temp = list1[i]
+            for j in range(len(list2)):
+                result.append(temp+list2[j])
+        return result
