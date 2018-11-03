@@ -11,3 +11,15 @@ class Solution(object):
         :type n: int
         :rtype: ListNode
         """
+        first, second = head, head
+        while (n > 0):
+            first = first.next
+            n -= 1
+            
+        if first is None:
+            return second.next
+        while(first.next is not None):
+            first = first.next
+            second = second.next
+        second.next = second.next.next
+        return head
