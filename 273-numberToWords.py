@@ -38,4 +38,39 @@ s = Solution()
 print(s.numberToWords(1000))
 # print(s.numberToWords())
 
+# second time
+class Solution:
+    def numberToWords(self, num):
+        """
+        :type num: int
+        :rtype: str
+        """
+        lv1 = ['Zero','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Eleven','Twelve','Thirteen','Fourteen','Fifteen','Sixteen','Seventeen','Eighteen','Nineteen']
+        lv2 = ['Twenty','Thirty','Forty','Fifty','Sixty','Seventy','Eighty','Ninety']
+        lv3 = ['Hundred']
+        lv4 = ['Thousand','Million','Billion']
+        
+        result = []
+        digit_index = 0
+        while(num > 0):
+            temp, num = num % 1000, int(num / 1000)
+            word = ''
+            if temp > 99:
+                word += lv1[int(temp/100)] + ' ' + lv3[0] + ' '
+                temp = temp % 100
+            if temp > 19:
+                word += lv2[int(temp/10)-2] + ' '
+                temp = temp % 10
+            if temp > 0:
+                word += lv1[int(temp)] + ' '
+            word = word.strip()
+            # print(word)
+            if len(word) > 0:
+                if digit_index > 0:
+                    word += ' ' + lv4[digit_index-1]
+                result.append(word)
+            digit_index += 1
+        return " ".join(result[::-1]) or 'Zero'
+        
+
 
