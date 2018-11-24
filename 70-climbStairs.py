@@ -17,5 +17,12 @@ class Solution:
         	temp = temp-2
         return result
 
+# solution 2
+def climbStairs(self, n):
+    a = b = 1
+    for _ in range(n):
+        a, b = b, a + b
+    return a
+
 s = Solution()
 print(s.climbStairs(2))
