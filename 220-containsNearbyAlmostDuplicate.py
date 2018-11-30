@@ -6,18 +6,14 @@ class Solution(object):
         :type t: int
         :rtype: bool
         """
- 
-        num_dict = collections.OrderedDict()
-        for i in range(len(nums)):
-            key = nums[i]//max(t,1)
-            for j in (key-1, key, key+1):
-                if j in num_dict and abs(nums[i] - num_dict[j]) <= t:
-                    print(nums[i])
-                    print(num_dict[j])
+        bucket = {}
+        for i,n in enumerate(nums):
+            bucket_index = n//t if t > 0 else n
+            offset = 1 if t > 0 else 0
+            for index in range(bucket_index-offset, bucket_index+offset+1):
+                if index in bucket and abs(bucket[index] - n) <= t:
                     return True
-            num_dict[key] = nums[i]
-            if i - k >= 0:
-                num_dict.popitem(last = False)
+            bucket[bucket_index] = n
+            if len(bucket) > k:
+                del bucket[nums[i-k]//t if t>0 else nums[i-k]]
         return False
-                
-                    
