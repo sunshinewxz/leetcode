@@ -1,3 +1,31 @@
+# better solution
+class Solution(object):
+    def alienOrder(self, words):
+        """
+        :type words: List[str]
+        :rtype: str
+        """
+        relation = []
+        for i in range(len(words)-1):
+            word1, word2 = words[i], words[i+1]
+            for j in range(min(len(word1), len(word2))):
+                a, b = word1[j], word2[j]
+                if a != b:
+                    relation.append(a+b)
+                    break
+        chars = set(''.join(words))
+        order = []
+        while(len(relation)>0):
+            free = chars - set(r[1] for r in relation)
+            if len(free) == 0:
+                return ''
+            order += free
+            chars -= free
+            relation = [new for new in relation if free.isdisjoint(new)]
+        return ''.join(order+list(chars))
+                   
+        
+# original solution
 class Solution(object):
     def alienOrder(self, words):
         """
