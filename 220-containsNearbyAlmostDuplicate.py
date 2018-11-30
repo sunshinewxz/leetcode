@@ -17,3 +17,25 @@ class Solution(object):
             if len(bucket) > k:
                 del bucket[nums[i-k]//t if t>0 else nums[i-k]]
         return False
+    
+# solution 2
+class Solution(object):
+    def containsNearbyAlmostDuplicate(self, nums, k, t):
+        """
+        :type nums: List[int]
+        :type k: int
+        :type t: int
+        :rtype: bool
+        """
+        if t == 0 and len(nums) == len(set(nums)):
+            return False
+        for i in range(len(nums)):
+            for j in range(1, k + 1):
+                if i + j >= len(nums):
+                    break
+                
+                if abs(nums[i] - nums[i+j]) <= t:
+                    return True
+                
+        return False
+        
